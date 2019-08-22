@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Artiste;
 use App\Form\ArtisteType;
 use App\Repository\ArtisteRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,13 +30,17 @@ class ArtisteController extends AbstractController
     /**
      * @Route("/new", name="artiste_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, $artiste, FileUploader $fileUploader): Response
     {
         $artiste = new Artiste();
         $form = $this->createForm(ArtisteType::class, $artiste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $this->addImage($form, $artiste, $fileUploader);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($artiste);
             $entityManager->flush();
@@ -61,12 +67,13 @@ class ArtisteController extends AbstractController
     /**
      * @Route("/{id}/edit", name="artiste_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Artiste $artiste): Response
+    public function edit(Request $request, Artiste $artiste, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(ArtisteType::class, $artiste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addImage($form, $artiste, $fileUploader);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('artiste_index');
@@ -90,5 +97,15 @@ class ArtisteController extends AbstractController
         }
 
         return $this->redirectToRoute('artiste_index');
+    }
+
+    public function addImage($form, $artiste, FileUploader $fileUploader)
+    {
+        /** @var UploadedFile $brochureFile */
+        $brochureFile = $form['image']->getData();
+        if ($brochureFile) {
+            $brochureFileName = $fileUploader->upload($brochureFile);
+            $artiste->setImage("/Img/$brochureFileName");
+        }
     }
 }

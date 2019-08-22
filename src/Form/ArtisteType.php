@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Artiste;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,6 +17,10 @@ class ArtisteType extends AbstractType
             ->add('pays')
             ->add('style')
             ->add('presentation')
+            ->add('image', FileType::class, [
+                'label' => 'Img',
+                'data_class' => null
+            ])
         ;
     }
 

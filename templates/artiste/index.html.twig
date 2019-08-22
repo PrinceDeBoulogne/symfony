@@ -6,37 +6,51 @@
     <div class="container">
         <h1>Artiste index</h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
-                    <th>Pays</th>
-                    <th>Style</th>
-                    <th>Presentation</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for artiste in artistes %}
-                <tr>
-                    <td>{{ artiste.id }}</td>
-                    <td>{{ artiste.nom }}</td>
-                    <td>{{ artiste.pays }}</td>
-                    <td>{{ artiste.style }}</td>
-                    <td>{{ artiste.presentation }}</td>
-                    <td>
-                        <a href="{{ path('artiste_show', {'id': artiste.id}) }}">show</a>
-                        <a href="{{ path('artiste_edit', {'id': artiste.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="6">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+{#        <table class="table">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>Id</th>#}
+{#                    <th>Nom</th>#}
+{#                    <th>Pays</th>#}
+{#                    <th>Style</th>#}
+{#                    <th>Presentation</th>#}
+{#                    <th>Image</th>#}
+{#                    <th>actions</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% for artiste in artistes %}#}
+{#                <tr>#}
+{#                    <td>{{ artiste.id }}</td>#}
+{#                    <td>{{ artiste.nom }}</td>#}
+{#                    <td>{{ artiste.pays }}</td>#}
+{#                    <td>{{ artiste.style }}</td>#}
+{#                    <td>{{ artiste.presentation }}</td>#}
+{#                    <td>{{ asset(artiste.image) | figure("") | raw }}</td>#}
+{#                    <td>#}
+{#                        <a href="{{ path('artiste_show', {'id': artiste.id}) }}">show</a>#}
+{#                        <a href="{{ path('artiste_edit', {'id': artiste.id}) }}">edit</a>#}
+{#                    </td>#}
+{#                </tr>#}
+{#            {% else %}#}
+{#                <tr>#}
+{#                    <td colspan="6">no records found</td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+
+        {% for artiste in artistes %}
+            <div class="card text-center" style="width: 18rem;">
+                <img src="{{ asset(artiste.image) }}" class="card-img-top" alt="test">
+                <div class="card-body">
+                    <h5 class="card-title">{{ artiste.nom }}</h5>
+                    <p class="card-text">{{ artiste.style }}</p>
+                    <a href="{{ path('artiste_show', {'id': artiste.id}) }}" class="btn btn-primary">show</a>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
 
         <a href="{{ path('artiste_new') }}">Create new</a>
     </div>

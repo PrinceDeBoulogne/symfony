@@ -38,13 +38,7 @@ class EvenementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
-                /** @var UploadedFile $brochureFile */
-                $brochureFile = $form['image']->getData();
-                if ($brochureFile) {
-                    $brochureFileName = $fileUploader->upload($brochureFile);
-                    $evenement->setImage("/Img/$brochureFileName");
-                }
+            $this->addImage($form, $evenement, $fileUploader);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($evenement);
@@ -72,12 +66,13 @@ class EvenementController extends AbstractController
     /**
      * @Route("/{id}/edit", name="evenement_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Evenement $evenement): Response
+    public function edit(Request $request, Evenement $evenement, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addImage($form, $evenement, $fileUploader);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('evenement_index');
@@ -101,5 +96,15 @@ class EvenementController extends AbstractController
         }
 
         return $this->redirectToRoute('evenement_index');
+    }
+
+    public function addImage($form, $evenement, FileUploader $fileUploader)
+    {
+        /** @var UploadedFile $brochureFile */
+        $brochureFile = $form['image']->getData();
+        if ($brochureFile) {
+            $brochureFileName = $fileUploader->upload($brochureFile);
+            $evenement->setImage("/Img/$brochureFileName");
+        }
     }
 }
