@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Evenement index</h1>
+        <hr>
+{#        <table class="table">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>Id</th>#}
+{#                    <th>Artiste</th>#}
+{#                    <th>Type</th>#}
+{#                    <th>DateDebut</th>#}
+{#                    <th>DateFin</th>#}
+{#                    <th>Lieu</th>#}
+{#                    <th>Ville</th>#}
+{#                    <th>Description</th>#}
+{#                    <th>Prix</th>#}
+{#                    <th>Image</th>#}
+{#                    <th>actions</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% for evenement in evenements %}#}
+{#                <tr>#}
+{#                    <td>{{ evenement.id }}</td>#}
+{#                    <td>{{ evenement.artisteId.nom }}</td>#}
+{#                    <td>{{ evenement.type }}</td>#}
+{#                    <td>{{ evenement.dateDebut | date('Y/m/d') }}</td>#}
+{#                    <td>{{ evenement.dateFin | date('Y/m/d')}}</td>#}
+{#                    <td>{{ evenement.lieu }}</td>#}
+{#                    <td>{{ evenement.ville }}</td>#}
+{#                    <td>{{ evenement.description }}</td>#}
+{#                    <td>{{ evenement.prix }}</td>#}
+{#                    <td>{{ asset(evenement.image) | figure(evenement.description) | raw }}</td>#}
+{#                    <td>#}
+{#                        <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>#}
+{#                        <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>#}
+{#                    </td>#}
+{#                </tr>#}
+{#            {% else %}#}
+{#                <tr>#}
+{#                    <td colspan="9">no events found</td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+
+        {% for evenement in evenements %}
+            <div class="card text-center" style="width: 18rem;">
+                <img src="{{ asset(evenement.image) }}" class="card-img-top" alt="test">
+                <div class="card-body">
+                    <h5 class="card-title">{{ evenement.type }}</h5>
+                    <p class="card-text">{{ evenement.description }}</p>
+                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}" class="btn btn-primary">show</a>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+
+        <a href="{{ path('evenement_new') }}" class="btn btn-primary">Create new</a>
+    </div>
+{% endblock %}
