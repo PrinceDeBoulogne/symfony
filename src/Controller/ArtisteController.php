@@ -108,4 +108,25 @@ class ArtisteController extends AbstractController
             $artiste->setImage("/Img/$brochureFileName");
         }
     }
+
+
+    /**
+     * @Route("/search", name="artiste_found", methods={"POST"})
+     * @param Request $request
+     * @param ArtisteRepository $rep
+     * @return Response
+     */
+    public function searchArtist(Request $request, ArtisteRepository $rep): Response
+    {
+        if($rep == true) {
+            $artisteNom = $request->request->get('artisteNom');
+            $artiste = $rep->findOneBy(['nom' => $artisteNom]);
+            return $this->render('artiste/show.html.twig', [
+                'artiste' => $artiste,
+            ]);
+        }
+        else{
+            echo "SORRY NOT A GOOD ARTISTE";
+        }
+    }
 }
