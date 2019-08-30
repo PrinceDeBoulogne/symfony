@@ -30,7 +30,7 @@ class ArtisteController extends AbstractController
     /**
      * @Route("/new", name="artiste_new", methods={"GET","POST"})
      */
-    public function new(Request $request, $artiste, FileUploader $fileUploader): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $artiste = new Artiste();
         $form = $this->createForm(ArtisteType::class, $artiste);
@@ -118,15 +118,15 @@ class ArtisteController extends AbstractController
      */
     public function searchArtist(Request $request, ArtisteRepository $rep): Response
     {
-        if($rep == true) {
-            $artisteNom = $request->request->get('artisteNom');
-            $artiste = $rep->findOneBy(['nom' => $artisteNom]);
-            return $this->render('artiste/show.html.twig', [
-                'artiste' => $artiste,
-            ]);
-        }
-        else{
-            echo "SORRY NOT A GOOD ARTISTE";
-        }
+
+        $artisteNom = $request->request->get('artisteNom');
+        $artiste = $rep->findByExampleField($artisteNom);
+
+        return $this->render('artiste/search.html.twig', [
+            'artistes' => $artiste,
+        ]);
+
+
+
     }
 }

@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>Produit index</h1>
+        <h1 class="text-center">Produit index</h1>
 
         <table class="table">
             <thead>
@@ -24,8 +24,9 @@
                     <td>{{ produit.dateProduction ? produit.dateProduction|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ produit.presentation }}</td>
                     <td>
-                        <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
                         <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+                        <button href="{{ path('addToCart', {'id': produit.id}) }}" class="btn btn-primary">add</button>
+
                     </td>
                 </tr>
             {% else %}

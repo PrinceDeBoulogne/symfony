@@ -48,6 +48,11 @@ class Produit
      */
     private $commandes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="produits")
+     */
+    private $cart;
+
     public function __construct()
     {
         $this->supports = new ArrayCollection();
@@ -188,6 +193,18 @@ class Produit
             $this->commandes->removeElement($commande);
             $commande->removeProduit($this);
         }
+
+        return $this;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(?Cart $cart): self
+    {
+        $this->cart = $cart;
 
         return $this;
     }

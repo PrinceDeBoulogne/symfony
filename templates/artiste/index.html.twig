@@ -40,9 +40,9 @@
 {#            {% endfor %}#}
 {#            </tbody>#}
 {#        </table>#}
-
+        <div class=" flex-column justify-content-center">
         {% for artiste in artistes %}
-            <div class="card text-center" style="width: 18rem;">
+            <div class="card border-secondary mb-3 text-center card-columns col-4" >
                 <img src="{{ asset(artiste.image) }}" class="card-img-top" alt="test">
                 <div class="card-body">
                     <h5 class="card-title">{{ artiste.nom }}</h5>
@@ -52,7 +52,8 @@
             </div>
             <hr>
         {% endfor %}
+        </div>
 
-        <a href="{{ path('artiste_new') }}">Create new</a>
+        <a href="{{ path('artiste_new') }}" class="btn btn-primary">Create new</a>
     </div>
 {% endblock %}
