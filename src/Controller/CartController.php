@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
+use App\Entity\Commande;
 use App\Entity\Produit;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,6 +42,16 @@ class CartController extends AbstractController
         $em->persist($cart);
         $em->flush();
         dd($cart);
+    }
+
+    /**
+     * @Route("/{id}", name="commande_show", methods={"GET"})
+     */
+    public function show(Commande $commande): \Symfony\Component\HttpFoundation\Response
+    {
+        return $this->render('commande/show.html.twig', [
+            'commande' => $commande,
+        ]);
     }
 
 }

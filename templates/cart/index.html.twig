@@ -5,30 +5,30 @@
 {% block body %}
     <h1>Commande</h1>
 
-{#    <table class="table">#}
-{#        <tbody>#}
-{#        <tr>#}
-{#            <th>Id</th>#}
-{#            <td>{{ commande.id }}</td>#}
-{#        </tr>#}
-{#        <tr>#}
-{#            <th>NumeroCommande</th>#}
-{#            <td>{{ commande.numeroCommande }}</td>#}
-{#        </tr>#}
-{#        <tr>#}
-{#            <th>DateCommande</th>#}
-{#            <td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d H:i:s') : '' }}</td>#}
-{#        </tr>#}
-{#        <tr>#}
-{#            <th>Montant</th>#}
-{#            <td>{{ commande.montant }}</td>#}
-{#        </tr>#}
-{#        <tr>#}
-{#            <th>Statut</th>#}
-{#            <td>{{ commande.statut }}</td>#}
-{#        </tr>#}
-{#        </tbody>#}
-{#    </table>#}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ commande.id }}</td>
+        </tr>
+        <tr>
+            <th>NumeroCommande</th>
+            <td>{{ commande.numeroCommande }}</td>
+        </tr>
+        <tr>
+            <th>DateCommande</th>
+            <td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Montant</th>
+            <td>{{ commande.montant }}</td>
+        </tr>
+        <tr>
+            <th>Statut</th>
+            <td>{{ commande.statut }}</td>
+        </tr>
+        </tbody>
+    </table>
 
 {#    <a href="{{ path('commande_index') }}">back to list</a>#}
 
